@@ -40,6 +40,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+	private static DOMAIN_URL="http://192.168.1.241/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,9 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+		//get the menu item id first
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -114,40 +113,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         protected String doInBackground(String... params) {
 
-            String post_url = "http://192.168.1.241/login_post.php";
-            String POST_PARAMS = "username="+params[0]+"&password="+params[1];
+            String post_url = DOMAIN_URL+"login_post.php";
 
-            URL url = null;
             try {
-                url = new URL(post_url);
+                URL url = new URL(post_url);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+				
+				//set connection Header
                 conn.setRequestMethod("POST");
-
+				con.setRequestProperty("Accept", "application/json");
+				con.setRequestProperty("Content-type", "application/json")
+				
+			    JSONObject jsonObject = new JSONObject();
+				jsonObject.put("username", params[0]);
+				jsonObject.put("password", params[1]);
+				
+				//send post request
                 conn.setDoOutput(true);
-                OutputStream os = new BufferedOutputStream(conn.getOutputStream());
-                os.write(POST_PARAMS.getBytes());
-                os.flush();
-                os.close();
-                // For POST only - END
-
+                DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+				wr.writeBytes(jsonObject.toString());
+				wr.flush();
+				wr.close();
+	
                 String reply="FALSE";
                 int responseCode = conn.getResponseCode();
-                if (responseCode == HttpURLConnection.HTTP_OK) { //success
-                    BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    String inputLine;
-                    StringBuffer response = new StringBuffer();
-
-                    while ((inputLine = in.readLine()) != null) {
-                        response.append(inputLine);
-                    }
-                    in.close();
+                if (responseCode == HttpURLConnection.HTTP_OK) { //success,200 code
+					BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+					String inputLine;
+					StringBuffer response = new StringBuffer();
+		
+					while ((inputLine = in.readLine()) != null) {
+						response.append(inputLine);
+					}
+					in.close();
                     reply = String.valueOf(response);
                 }
-                if (reply.toLowerCase().equals("ok")){
+				conn.disconnect();
+                if (reply.equals("OK")){
                     response = reply;
-                    return "OK";
+                    return response;
                 }
-                conn.disconnect();
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException ioe){
