@@ -73,9 +73,19 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign In"
+        android:text="LOG IN"
         android:id="@+id/sign_in_btn"
         android:layout_below="@+id/pass_tf"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignRight="@+id/pass_tf"
+        android:layout_alignEnd="@+id/pass_tf" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SIGN UP"
+        android:id="@+id/button"
+        android:layout_alignBottom="@+id/sign_in_btn"
+        android:layout_alignLeft="@+id/pass_tf"
+        android:layout_alignStart="@+id/pass_tf" />
 
 </RelativeLayout>
