@@ -40,7 +40,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-	private static DOMAIN_URL="http://192.168.1.241/";
+	private static LOGIN_URL="http://wcsc02.ad.ydesigngroup.com/login";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         protected String doInBackground(String... params) {
 
-            String post_url = DOMAIN_URL+"login_post.php";
+            String post_url = LOGIN_URL;
 
             try {
                 URL url = new URL(post_url);
