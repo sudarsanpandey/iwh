@@ -1,5 +1,6 @@
 package com.example.spandey.iwh;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+       /* Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -57,10 +58,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         Button sign_in = (Button)findViewById(R.id.sign_in_btn);
         sign_in.setOnClickListener(this);
+
+        Button sign_up = (Button) findViewById(R.id.sign_up_btn);
+        sign_up.setOnClickListener(this);
     }
 
     @Override
@@ -94,6 +98,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(password.length() > 0){
                     new postLoginClass().execute(username, password);
                 }
+                break;
+            case R.id.sign_up_btn:
+                Intent sign_up_intent = new Intent(this,signupActivity.class);
+                this.startActivity(sign_up_intent);
                 break;
         }
     }
