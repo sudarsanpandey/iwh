@@ -43,7 +43,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-	private static String LOGIN_URL="http://wcsc02.ad.ydesigngroup.com/login";
+	private static String LOGIN_URL="http://android-test-server.com/login";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -195,12 +195,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         protected void onPostExecute(String result) {
             //if response is not ok
-            if(!response.equals("OK")){
-                Toast.makeText(MainActivity.this,"Login Unsuccessful!! \nPlease Check Credentials!!",Toast.LENGTH_LONG).show();
-            }
-            else if (response.equals("OK")){
-                Toast.makeText(MainActivity.this, "PostExecute" + ":" + response, Toast.LENGTH_LONG).show();
-            }
+            //if(!response.equals("OK")){
+            //    Toast.makeText(MainActivity.this,"Login Unsuccessful!! \nPlease Check Credentials!!",Toast.LENGTH_LONG).show();
+            //}
+            //else if (response.equals("OK")){
+                Toast.makeText(MainActivity.this, "Data Received : " + ":" + response, Toast.LENGTH_LONG).show();
+            //}
             return;
         }
     }
